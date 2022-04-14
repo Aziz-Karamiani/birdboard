@@ -15,7 +15,7 @@ class ProjectsTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_example(): void
     {
         $this->withExceptionHandling();
 
@@ -26,11 +26,31 @@ class ProjectsTest extends TestCase
         ];
 
         // Assert Database
-        $this->post('/projects', $attributes);
+        $this->post('/projects', $attributes)->assertRedirect('/projects');
         $this->assertDatabaseHas("projects", $attributes);
 
         // Assert View
         $this->get('/projects')->assertStatus(200);
         $this->get('/projects')->assertSee($attributes["title"]);
+    }
+
+    /**
+     * Title validation must required.
+     */
+    public function test_title_validation(): void
+    {
+        $this->withExceptionHandling();
+
+        $this->post('/projects', [])->assertSessionHasErrors(['title']);
+    }
+
+    /**
+     * Description validation must required.
+     */
+    public function test_description_validation(): void
+    {
+        $this->withExceptionHandling();
+
+        $this->post('/projects', [])->assertSessionHasErrors(['description']);
     }
 }
