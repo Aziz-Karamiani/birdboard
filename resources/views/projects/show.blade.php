@@ -8,12 +8,7 @@
     <title>BirdBoard</title>
 </head>
 <body>
-    <ul>
-        @foreach($projects as $project)
-            <a href="{{ $project->path() }}">
-                <li>{{ $project->title }}</li>
-            </a>
-        @endforeach
-    </ul>
+    <h1>{{ $project->title }}</h1>
+    <div>{{ $project->description }}</div>
 </body>
 </html>

@@ -13,4 +13,12 @@ class Project extends Model
      * @var string[]
      */
     protected $fillable = ["title", "description"];
+
+    /**
+     * @return string
+     */
+    public function path(): string
+    {
+        return '/projects/' . $this->id;
+    }
 }

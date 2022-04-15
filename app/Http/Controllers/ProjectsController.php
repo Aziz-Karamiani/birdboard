@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class ProjectsController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -19,11 +23,20 @@ class ProjectsController extends Controller
     }
 
     /**
+     * @param Project $project
+     * @return Application|Factory|View
+     */
+    public function show(Project $project)
+    {
+        return view('projects.show', compact('project'));
+    }
+
+    /**
      * Store Project
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|RedirectResponse
+    public function store(Request $request): Redirector|Application|RedirectResponse
     {
         // Validation
         $request->validate(["title" => "required", "description" => "required"]);

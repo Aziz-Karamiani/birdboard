@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -52,5 +53,19 @@ class ProjectsTest extends TestCase
         $this->withExceptionHandling();
 
         $this->post('/projects', [])->assertSessionHasErrors(['description']);
+    }
+
+    /**
+     *
+     */
+    public function test_a_user_view_a_project()
+    {
+        $this->withExceptionHandling();
+
+        $project = Project::factory(Project::class)->create();
+
+        $this->get('/projects/' . $project->id)
+            ->assertSee($project->title)
+            ->assertSee($project->description);
     }
 }
