@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
@@ -18,7 +19,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Auth::user()->projects;
         return view('projects.index', compact('projects'));
     }
 
@@ -28,6 +29,10 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
+        if (auth()->id() !== $project->user->id) {
+            abort(403);
+        }
+
         return view('projects.show', compact('project'));
     }
 
