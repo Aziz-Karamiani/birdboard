@@ -44,6 +44,8 @@ class ProjectsController extends Controller
         // get request data
         $attributes = request(["title", "description"]);
 
+        $attributes['owner_id'] = auth()->id();
+
         // Store project
         Project::create($attributes);
 
