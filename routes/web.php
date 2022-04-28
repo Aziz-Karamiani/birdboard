@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::controller(ProjectsController::class)->middleware(['auth'])->group(function () {
     Route::get('/projects','index');
+    Route::get('/projects/create','create');
     Route::get('/projects/{project}','show');
     Route::post('/projects','store');
 });

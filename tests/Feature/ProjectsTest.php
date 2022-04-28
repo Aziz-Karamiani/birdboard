@@ -17,11 +17,13 @@ class ProjectsTest extends TestCase
      *
      * @return void
      */
-    public function test_example(): void
+    public function test_create_project(): void
     {
-        $this->withExceptionHandling();
+        $this->withExceptionHandling();        $this->withExceptionHandling();
 
         $this->loginUser();
+
+        $this->get('/projects/create')->assertStatus(200);
 
         // Create Project
         $attributes = [
@@ -102,6 +104,7 @@ class ProjectsTest extends TestCase
     {
         $attributes = Project::factory()->raw(['owner_id' => null]);
 
+        $this->get('/projects/create')->assertRedirect('/login');
         $this->post('/projects', $attributes)->assertRedirect('/login');
 
     }
