@@ -1,19 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BirdBoard</title>
-</head>
-<body>
-    <ul>
-        @foreach($projects as $project)
-            <a href="{{ $project->path() }}">
-                <li>{{ $project->title }}</li>
-            </a>
-        @endforeach
-    </ul>
-</body>
-</html>
+@extends('layouts.app')
+@section('content')
+    <div class="container">
+        <ul class="list-group">
+            @foreach($projects as $project)
+                <a href="{{ $project->path() }}">
+                    <li class="list-group-item">{{ $project->title }}</li>
+                </a>
+            @endforeach
+        </ul>
+    </div>
+@endsection
